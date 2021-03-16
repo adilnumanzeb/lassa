@@ -214,7 +214,11 @@ Public Class JAZZ_CASH_FRM
             PrintDialog1.PrinterSettings = PrintDocument2.PrinterSettings
             PrintDialog1.AllowSomePages = True
             PrintDialog1.PrinterSettings.Copies = 1
-            PrintDocument2.Print()
+
+            If COPY_OPT.Checked = True Then
+                PrintDocument2.Print()
+            End If
+
         End If
 
 
@@ -422,6 +426,17 @@ Public Class JAZZ_CASH_FRM
 
     Private Sub CUSTOMER_NAME_TXT_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CUSTOMER_NAME_TXT.KeyPress
         If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
+            With CUSTOMER_NAME_TXT
+                If CUSTOMER_NAME_TXT.Text = "" Then
+                    .BackColor = Color.Red
+                    .ForeColor = Color.White
+                    Beep()
+                    Exit Sub
+                Else
+                    .BackColor = Color.White
+                    .ForeColor = Color.Black
+                End If
+            End With
             SendKeys.Send("{TAB}")
             e.Handled = True
         End If
@@ -520,5 +535,20 @@ Public Class JAZZ_CASH_FRM
         YAXIS2 += 35
         e.Graphics.DrawString("ALL TYPE OF ONLINE PAYMENTS & TRANSFERS", T3_fnt, Brushes.Black, XAXIS - 20, YAXIS)
 
+    End Sub
+
+    Private Sub COPY_OPT_CheckedChanged(sender As Object, e As EventArgs) Handles COPY_OPT.CheckedChanged
+        If COPY_OPT.Checked = True Then
+            My.Computer.Registry.CurrentUser.SetValue(Application.ProductName & "\COPYRECIPT", "YES")
+        Else
+            My.Computer.Registry.CurrentUser.SetValue(Application.ProductName & "\COPYRECIPT", "NO")
+
+        End If
+    End Sub
+
+    Private Sub MOBILENO_TXT_Click(sender As Object, e As EventArgs) Handles MOBILENO_TXT.Click
+        If Trim(MOBILENO_TXT.Text) = "-" Then
+            MOBILENO_TXT.Select(0, 0)
+        End If
     End Sub
 End Class

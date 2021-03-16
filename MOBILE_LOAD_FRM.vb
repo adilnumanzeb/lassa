@@ -216,7 +216,11 @@ Public Class MOBILE_LOAD_FRM
             PrintDialog1.PrinterSettings = PrintDocument2.PrinterSettings
             PrintDialog1.AllowSomePages = True
             PrintDialog1.PrinterSettings.Copies = 1
-            PrintDocument2.Print()
+
+            If COPY_OPT.Checked = True Then
+                PrintDocument2.Print()
+            End If
+
         End If
 
 
@@ -576,5 +580,11 @@ Public Class MOBILE_LOAD_FRM
 
 
 
+    End Sub
+
+    Private Sub MOBILENO_TXT_Click(sender As Object, e As EventArgs) Handles MOBILENO_TXT.Click
+        If Trim(MOBILENO_TXT.Text) = "-" Then
+            MOBILENO_TXT.Select(0, 0)
+        End If
     End Sub
 End Class

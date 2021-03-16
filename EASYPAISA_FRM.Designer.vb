@@ -238,8 +238,6 @@ Partial Class EASYPAISA_FRM
         '
         Me.COPY_OPT.AutoSize = True
         Me.COPY_OPT.BackColor = System.Drawing.Color.White
-        Me.COPY_OPT.Checked = True
-        Me.COPY_OPT.CheckState = System.Windows.Forms.CheckState.Checked
         Me.COPY_OPT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COPY_OPT.Location = New System.Drawing.Point(605, 557)
         Me.COPY_OPT.Name = "COPY_OPT"

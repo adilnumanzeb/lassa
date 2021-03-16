@@ -273,8 +273,6 @@ Partial Class MOBILE_LOAD_FRM
         'COPY_OPT
         '
         Me.COPY_OPT.AutoSize = True
-        Me.COPY_OPT.Checked = True
-        Me.COPY_OPT.CheckState = System.Windows.Forms.CheckState.Checked
         Me.COPY_OPT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COPY_OPT.Location = New System.Drawing.Point(616, 501)
         Me.COPY_OPT.Name = "COPY_OPT"
