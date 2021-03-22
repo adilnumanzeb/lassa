@@ -29,6 +29,7 @@ Partial Class MAINWIN_FRM
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.ONLINE_STATUS_LBL = New System.Windows.Forms.Label()
         Me.DB_ERR_PANNEL = New System.Windows.Forms.Panel()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -44,15 +45,16 @@ Partial Class MAINWIN_FRM
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LOADBAR_TIMER = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CONTACTS_BTN = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.SALES_BTN = New System.Windows.Forms.Button()
-        Me.MOBILE_LOAD_BTN = New System.Windows.Forms.Button()
+        Me.TIME_DATE = New System.Windows.Forms.Timer(Me.components)
         Me.LOGO_PIC_2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.JAZZCASH_BTN = New System.Windows.Forms.Button()
         Me.EASYPAISA_BTN = New System.Windows.Forms.Button()
+        Me.MOBILE_LOAD_BTN = New System.Windows.Forms.Button()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.TIME_DATE = New System.Windows.Forms.Timer(Me.components)
         Me.Panel4.SuspendLayout()
         Me.DB_ERR_PANNEL.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,9 +89,9 @@ Partial Class MAINWIN_FRM
         Me.Label4.ForeColor = System.Drawing.Color.White
         Me.Label4.Location = New System.Drawing.Point(643, 635)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(152, 22)
+        Me.Label4.Size = New System.Drawing.Size(142, 22)
         Me.Label4.TabIndex = 88
-        Me.Label4.Text = "VERSION 1.1.30"
+        Me.Label4.Text = "VERSION 2.0.1"
         '
         'Label6
         '
@@ -118,6 +120,7 @@ Partial Class MAINWIN_FRM
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.SeaShell
+        Me.Panel4.Controls.Add(Me.ONLINE_STATUS_LBL)
         Me.Panel4.Controls.Add(Me.DB_ERR_PANNEL)
         Me.Panel4.Controls.Add(Me.TIME_LBL)
         Me.Panel4.Controls.Add(Me.DATE_LBL)
@@ -126,8 +129,20 @@ Partial Class MAINWIN_FRM
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(801, 109)
+        Me.Panel4.Size = New System.Drawing.Size(800, 109)
         Me.Panel4.TabIndex = 84
+        '
+        'ONLINE_STATUS_LBL
+        '
+        Me.ONLINE_STATUS_LBL.AutoSize = True
+        Me.ONLINE_STATUS_LBL.BackColor = System.Drawing.Color.Maroon
+        Me.ONLINE_STATUS_LBL.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ONLINE_STATUS_LBL.ForeColor = System.Drawing.Color.White
+        Me.ONLINE_STATUS_LBL.Location = New System.Drawing.Point(320, 80)
+        Me.ONLINE_STATUS_LBL.Name = "ONLINE_STATUS_LBL"
+        Me.ONLINE_STATUS_LBL.Size = New System.Drawing.Size(223, 31)
+        Me.ONLINE_STATUS_LBL.TabIndex = 100
+        Me.ONLINE_STATUS_LBL.Text = "BETA TESTING"
         '
         'DB_ERR_PANNEL
         '
@@ -168,7 +183,7 @@ Partial Class MAINWIN_FRM
         Me.TIME_LBL.AutoSize = True
         Me.TIME_LBL.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TIME_LBL.ForeColor = System.Drawing.Color.Black
-        Me.TIME_LBL.Location = New System.Drawing.Point(339, 60)
+        Me.TIME_LBL.Location = New System.Drawing.Point(346, 60)
         Me.TIME_LBL.Name = "TIME_LBL"
         Me.TIME_LBL.Size = New System.Drawing.Size(109, 20)
         Me.TIME_LBL.TabIndex = 78
@@ -190,7 +205,7 @@ Partial Class MAINWIN_FRM
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.Black
-        Me.Label15.Location = New System.Drawing.Point(337, 3)
+        Me.Label15.Location = New System.Drawing.Point(335, 3)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(131, 16)
         Me.Label15.TabIndex = 76
@@ -222,7 +237,7 @@ Partial Class MAINWIN_FRM
         'PB1
         '
         Me.PB1.Location = New System.Drawing.Point(3, 498)
-        Me.PB1.Maximum = 30
+        Me.PB1.Maximum = 50
         Me.PB1.Name = "PB1"
         Me.PB1.Size = New System.Drawing.Size(773, 18)
         Me.PB1.TabIndex = 93
@@ -272,6 +287,7 @@ Partial Class MAINWIN_FRM
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.PeachPuff
+        Me.Panel1.Controls.Add(Me.CONTACTS_BTN)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.SALES_BTN)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
@@ -279,6 +295,23 @@ Partial Class MAINWIN_FRM
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(109, 557)
         Me.Panel1.TabIndex = 96
+        '
+        'CONTACTS_BTN
+        '
+        Me.CONTACTS_BTN.BackColor = System.Drawing.Color.Transparent
+        Me.CONTACTS_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.CONTACTS_BTN.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CONTACTS_BTN.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CONTACTS_BTN.ForeColor = System.Drawing.Color.Black
+        Me.CONTACTS_BTN.Image = Global.Easypaisa.My.Resources.Resources.Contacts_513
+        Me.CONTACTS_BTN.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.CONTACTS_BTN.Location = New System.Drawing.Point(11, 37)
+        Me.CONTACTS_BTN.Name = "CONTACTS_BTN"
+        Me.CONTACTS_BTN.Size = New System.Drawing.Size(82, 72)
+        Me.CONTACTS_BTN.TabIndex = 96
+        Me.CONTACTS_BTN.Text = "CONTACTS"
+        Me.CONTACTS_BTN.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CONTACTS_BTN.UseVisualStyleBackColor = False
         '
         'PictureBox1
         '
@@ -300,25 +333,17 @@ Partial Class MAINWIN_FRM
         Me.SALES_BTN.ForeColor = System.Drawing.Color.Black
         Me.SALES_BTN.Image = Global.Easypaisa.My.Resources.Resources._2
         Me.SALES_BTN.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.SALES_BTN.Location = New System.Drawing.Point(23, 17)
+        Me.SALES_BTN.Location = New System.Drawing.Point(11, 135)
         Me.SALES_BTN.Name = "SALES_BTN"
-        Me.SALES_BTN.Size = New System.Drawing.Size(57, 72)
+        Me.SALES_BTN.Size = New System.Drawing.Size(82, 72)
         Me.SALES_BTN.TabIndex = 95
         Me.SALES_BTN.Text = "SALES"
         Me.SALES_BTN.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.SALES_BTN.UseVisualStyleBackColor = False
         '
-        'MOBILE_LOAD_BTN
+        'TIME_DATE
         '
-        Me.MOBILE_LOAD_BTN.BackColor = System.Drawing.Color.White
-        Me.MOBILE_LOAD_BTN.BackgroundImage = Global.Easypaisa.My.Resources.Resources.Mobile_Load_Inner_header
-        Me.MOBILE_LOAD_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.MOBILE_LOAD_BTN.Location = New System.Drawing.Point(439, 126)
-        Me.MOBILE_LOAD_BTN.Name = "MOBILE_LOAD_BTN"
-        Me.MOBILE_LOAD_BTN.Size = New System.Drawing.Size(121, 110)
-        Me.MOBILE_LOAD_BTN.TabIndex = 99
-        Me.MOBILE_LOAD_BTN.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.MOBILE_LOAD_BTN.UseVisualStyleBackColor = False
+        Me.TIME_DATE.Enabled = True
         '
         'LOGO_PIC_2
         '
@@ -367,6 +392,18 @@ Partial Class MAINWIN_FRM
         Me.EASYPAISA_BTN.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.EASYPAISA_BTN.UseVisualStyleBackColor = False
         '
+        'MOBILE_LOAD_BTN
+        '
+        Me.MOBILE_LOAD_BTN.BackColor = System.Drawing.Color.White
+        Me.MOBILE_LOAD_BTN.BackgroundImage = Global.Easypaisa.My.Resources.Resources.Mobile_Load_Inner_header
+        Me.MOBILE_LOAD_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.MOBILE_LOAD_BTN.Location = New System.Drawing.Point(439, 126)
+        Me.MOBILE_LOAD_BTN.Name = "MOBILE_LOAD_BTN"
+        Me.MOBILE_LOAD_BTN.Size = New System.Drawing.Size(121, 110)
+        Me.MOBILE_LOAD_BTN.TabIndex = 99
+        Me.MOBILE_LOAD_BTN.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.MOBILE_LOAD_BTN.UseVisualStyleBackColor = False
+        '
         'PictureBox4
         '
         Me.PictureBox4.BackgroundImage = CType(resources.GetObject("PictureBox4.BackgroundImage"), System.Drawing.Image)
@@ -377,16 +414,11 @@ Partial Class MAINWIN_FRM
         Me.PictureBox4.TabIndex = 98
         Me.PictureBox4.TabStop = False
         '
-        'TIME_DATE
-        '
-        Me.TIME_DATE.Enabled = True
-        Me.TIME_DATE.Interval = 1000
-        '
         'MAINWIN_FRM
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(801, 666)
+        Me.ClientSize = New System.Drawing.Size(800, 666)
         Me.Controls.Add(Me.LOGO_PIC_2)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.LOG_PANNEL)
@@ -453,4 +485,6 @@ Partial Class MAINWIN_FRM
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents MOBILE_LOAD_BTN As Button
     Friend WithEvents TIME_DATE As Timer
+    Friend WithEvents CONTACTS_BTN As Button
+    Friend WithEvents ONLINE_STATUS_LBL As Label
 End Class

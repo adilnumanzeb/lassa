@@ -1,5 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class MOBILE_LOAD_FRM
+    Public MySource As New AutoCompleteStringCollection()
     Private Sub MOBILE_LOAD_FRM_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim LOGIN_USER
         LOGIN_USER = My.Computer.Registry.CurrentUser.GetValue(Application.ProductName & "\COPYRECIPT")
@@ -19,7 +20,10 @@ Public Class MOBILE_LOAD_FRM
             Exit Sub
         End If
         Call GET_TID_NUMBER()
+        Call GET_CREDITORS_LIST()
+
     End Sub
+
 
     Sub RESIZE_ME_PANEL()
         Panel1.Location = New Point((Me.Width - Panel1.Width) \ 2, (Me.Height - Panel1.Height) \ 2)
@@ -27,7 +31,7 @@ Public Class MOBILE_LOAD_FRM
     Sub GET_TID_NUMBER()
         'TO CHECK IF DB IS NEW
 
-        Dim CON As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+        Dim CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
         Dim DA As New MySqlDataAdapter("SELECT * FROM `TRANS_ID`;", CON)
         Dim CMD As New MySqlCommand("SELECT * FROM `TRANS_ID`;", CON)
         Dim dt As New DataTable
@@ -52,7 +56,7 @@ Public Class MOBILE_LOAD_FRM
 
 
     Sub TID_UPDATER()
-        Dim CON As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+        Dim CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
         Dim DA As New MySqlDataAdapter("SELECT * FROM `TRANS_ID` ORDER BY `TID` DESC LIMIT 1;", CON)
         Dim CMD As New MySqlCommand("SELECT * FROM `TRANS_ID` ORDER BY `TID` DESC LIMIT 1;", CON)
         Dim dt As New DataTable, DR As MySqlDataReader, TID_DB_VALUE As String
@@ -72,7 +76,7 @@ Public Class MOBILE_LOAD_FRM
     End Sub
     Sub NEW_DB_TID()
         'Using DR USING DATA CONNECTION
-        Using con As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+        Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
             'Using cmd As New sqlCommand("INSERT INTO `TRANS_ID` VALUES NULL,'N/A','" & AMOUNT_TXT.Text & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','N/A';", con)
             Using cmd As New MySqlCommand("INSERT INTO `TRANS_ID` VALUES (NULL,'" & MOBILENO_TXT.Text & "','N/A','0','0','" & Date.Today.ToString("dd-MM-yyyy") & "','N/A');", con)
                 Using da As New MySqlDataAdapter
@@ -86,9 +90,73 @@ Public Class MOBILE_LOAD_FRM
     End Sub
 
     Sub UPDATE_TRANS_CMD()
-        'Using DR USING DATA CONNECTION
-        Using con As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
-            Using cmd As New MySqlCommand("INSERT INTO `TRANS_ID` VALUES (NULL,'" & MOBILENO_TXT.Text & "','N/A','" & AMOUNT_TXT.Text & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','MOBILE LOAD');", con)
+        If CREDIT_OPT.Checked = True Then
+            'GET BALANCE
+            Dim GET_BALANCE As Integer, SET_BALANCE As Integer
+            Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+                Using cmd As New MySqlCommand("SELECT * FROM `CONTACTS` WHERE `MOBILE` = '" & GET_ONLY_MOBNO(MOBILENO_TXT.Text) & "'; ", con)
+                    Using da As New MySqlDataAdapter
+                        Dim DR As MySqlDataReader
+                        con.Open()
+                        da.SelectCommand = cmd
+                        DR = cmd.ExecuteReader
+                        If DR.HasRows Then
+                            DR.Read()
+                            GET_BALANCE = DR("BALANCE").ToString
+                        End If
+                        con.Close()
+                    End Using
+                End Using
+            End Using
+
+
+            'SET BALANCE
+            If GET_BALANCE = 0 Then
+                If IsNumeric(AMOUNT_TXT.Text) = False Then
+                    MsgBox("ENTER VALID AMOUNT")
+                    AMOUNT_TXT.Select()
+                    Exit Sub
+                End If
+
+                SET_BALANCE = Int(0 - AMOUNT_TXT.Text)
+            Else
+                SET_BALANCE = Int(GET_BALANCE - AMOUNT_TXT.Text)
+            End If
+
+            'ACCOUNT HISTORY / STATEMENT
+
+            Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+                Using cmd As New MySqlCommand("INSERT INTO `CREDIT_HISTORY` VALUES (NULL,'" & GET_ONLY_MOBNO(MOBILENO_TXT.Text) & "','N/A','" & SET_BALANCE & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','MOBILE LOAD');", con)
+                    Using da As New MySqlDataAdapter
+                        con.Open()
+                        da.SelectCommand = cmd
+                        cmd.ExecuteNonQuery()
+                        con.Close()
+                    End Using
+                End Using
+            End Using
+
+            'UPDATE CREDIT BALANCE
+            Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+                Using cmd As New MySqlCommand("UPDATE `contacts` SET `BALANCE` = '" & SET_BALANCE & "' WHERE (`MOBILE` = '" & GET_ONLY_MOBNO(MOBILENO_TXT.Text) & "');", con)
+                    Using da As New MySqlDataAdapter
+                        Dim DR As MySqlDataReader, dt As New DataTable
+                        con.Open()
+                        da.SelectCommand = cmd
+                        DR = cmd.ExecuteReader
+                        If DR.HasRows Then
+                            DR.Read()
+                            CREDITOR_TXT.Text = DR("NAME").ToString
+                        End If
+                        con.Close()
+                    End Using
+                End Using
+            End Using
+        End If
+
+        'TRANSECTION HISTORY
+        Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+            Using cmd As New MySqlCommand("INSERT INTO `TRANS_ID` VALUES (NULL,'" & GET_ONLY_MOBNO(MOBILENO_TXT.Text) & "','N/A','" & AMOUNT_TXT.Text & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','MOBILE LOAD');", con)
                 Using da As New MySqlDataAdapter
                     con.Open()
                     da.SelectCommand = cmd
@@ -230,6 +298,7 @@ Public Class MOBILE_LOAD_FRM
         MOBILENO_TXT.Text = ""
         AMOUNT_TXT.Text = ""
         TNO_TXT.Text = ""
+        CREDITOR_TXT.Text = ""
         UPDATE_BTN.Enabled = False
         Call GET_TID_NUMBER()
         MOBILENO_TXT.Select()
@@ -421,6 +490,35 @@ Public Class MOBILE_LOAD_FRM
         If MOBILENO_TXT.Text = "034 -" Then
             TELENOR_OPT.Checked = True
         End If
+
+        Try
+            Dim ONLY_MOBILE_NUMBER = ""
+            Dim mytext As String = MOBILENO_TXT.Text
+            Dim myChars() As Char = mytext.ToCharArray()
+            For Each ch As Char In myChars
+                If Char.IsDigit(ch) Then
+                    ONLY_MOBILE_NUMBER += ch
+                End If
+            Next
+            Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+                Using cmd As New MySqlCommand("SELECT * FROM `CONTACTS` WHERE `MOBILE` = '" & ONLY_MOBILE_NUMBER & "'; ", con)
+                    Using da As New MySqlDataAdapter
+                        Dim DR As MySqlDataReader, dt As New DataTable
+                        con.Open()
+                        da.SelectCommand = cmd
+                        DR = cmd.ExecuteReader
+                        If DR.HasRows Then
+                            DR.Read()
+                            CREDITOR_TXT.Text = DR("NAME").ToString
+                        End If
+                        con.Close()
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub ERROR_LBL_TextChanged(sender As Object, e As EventArgs) Handles ERROR_LBL.TextChanged
@@ -585,6 +683,73 @@ Public Class MOBILE_LOAD_FRM
     Private Sub MOBILENO_TXT_Click(sender As Object, e As EventArgs) Handles MOBILENO_TXT.Click
         If Trim(MOBILENO_TXT.Text) = "-" Then
             MOBILENO_TXT.Select(0, 0)
+        End If
+    End Sub
+
+    Private Sub CASH_OPT_CheckedChanged(sender As Object, e As EventArgs) Handles CASH_OPT.CheckedChanged
+        CREDITOR_PANEL.BackColor = Color.OldLace
+
+    End Sub
+
+    Private Sub CREDIT_OPT_CheckedChanged(sender As Object, e As EventArgs) Handles CREDIT_OPT.CheckedChanged
+        CREDITOR_PANEL.BackColor = Color.OldLace
+    End Sub
+
+    Private Sub CREDITORS_BTN_Click(sender As Object, e As EventArgs) Handles CREDITORS_BTN.Click
+        CONTACTS_FRM.ShowDialog()
+        'CONTACTS_FRM.CLOSE_BTN.Text = "Select"
+        Call GET_CREDITORS_LIST()
+
+
+    End Sub
+    Sub GET_CREDITORS_LIST()
+        Dim CUSTOMER_ARRAY As String = ""
+        Dim CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+        Dim cmd As New MySqlCommand("Select * from `CONTACTS`;", CON)
+        Dim da As New MySqlDataAdapter("Select * from `CONTACTS`;", CON)
+        Dim dr As MySqlDataReader
+        CON.Open()
+        dr = cmd.ExecuteReader
+        Do While dr.Read() = True
+            If ListBox1.Items.Contains(dr("Name").ToString()) = False Then
+                ListBox1.Items.Add(dr("Name").ToString())
+            End If
+
+        Loop
+
+        Dim elements(ListBox1.Items.Count - 1) As String
+        ListBox1.Items.CopyTo(elements, 0)
+        Dim stringNames As String = String.Join(",", elements)
+
+
+        'MsgBox(stringNames & " " & UBound(elements))
+
+        CON.Close()
+
+
+
+        'SORUCE FOR WORK TYPE NEW BILL
+        MySource.AddRange(New String() {"CONSTRUCTION", "STEEL PATI", "BINDING WIRE", "BRICKS", "CEMENT", "CRUSH", "IRON ROD", "TRANSFER SET", "ELECTRICAL WORKS", "PLUMBING WORKS", "CEILING WORKS", "CARPENTARY WORKS", "PAINT WORKS", "TILE WORKS"})
+
+        With CREDITOR_TXT
+            .AutoCompleteCustomSource = MySource
+            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+        End With
+
+    End Sub
+
+    Private Sub CREDIT_OPT_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CREDIT_OPT.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
+            TNO_TXT.Select()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub CASH_OPT_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CASH_OPT.KeyPress
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
+            TNO_TXT.Select()
+            e.Handled = True
         End If
     End Sub
 End Class

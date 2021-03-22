@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>C:\EASYPAISA\|publish\</PublishUrlHistory>
+    <PublishUrlHistory>C:\EASYPAISA\|C:\EASYPAISA 1.2\|c:\EASYPAISA\|ftp://files.000webhost.com/public_html/easypaisa/|ftp://files.000webhost.com/</PublishUrlHistory>
     <InstallUrlHistory />
     <SupportUrlHistory />
-    <UpdateUrlHistory />
+    <UpdateUrlHistory>https://ithubpk.000webhostapp.com/easypaisa/</UpdateUrlHistory>
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>

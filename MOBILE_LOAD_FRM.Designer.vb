@@ -25,6 +25,14 @@ Partial Class MOBILE_LOAD_FRM
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MOBILE_LOAD_FRM))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.CREDITOR_PANEL = New System.Windows.Forms.Panel()
+        Me.CREDITORS_BTN = New System.Windows.Forms.Button()
+        Me.CREDIT_OPT = New System.Windows.Forms.RadioButton()
+        Me.CASH_OPT = New System.Windows.Forms.RadioButton()
+        Me.CREDITOR_TXT = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.COPY_OPT = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TELENOR_OPT = New System.Windows.Forms.RadioButton()
         Me.ZONG_OPT = New System.Windows.Forms.RadioButton()
@@ -46,14 +54,16 @@ Partial Class MOBILE_LOAD_FRM
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.PrintDocument2 = New System.Drawing.Printing.PrintDocument()
-        Me.COPY_OPT = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
+        Me.CREDITOR_PANEL.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.ListBox1)
+        Me.Panel1.Controls.Add(Me.CREDITOR_PANEL)
         Me.Panel1.Controls.Add(Me.COPY_OPT)
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Controls.Add(Me.Label1)
@@ -69,8 +79,95 @@ Partial Class MOBILE_LOAD_FRM
         Me.Panel1.Controls.Add(Me.UPDATE_BTN)
         Me.Panel1.Location = New System.Drawing.Point(12, 12)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(816, 591)
+        Me.Panel1.Size = New System.Drawing.Size(816, 660)
         Me.Panel1.TabIndex = 94
+        '
+        'ListBox1
+        '
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.Location = New System.Drawing.Point(754, 148)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(55, 173)
+        Me.ListBox1.TabIndex = 14
+        Me.ListBox1.Visible = False
+        '
+        'CREDITOR_PANEL
+        '
+        Me.CREDITOR_PANEL.BackColor = System.Drawing.Color.OldLace
+        Me.CREDITOR_PANEL.Controls.Add(Me.CREDITORS_BTN)
+        Me.CREDITOR_PANEL.Controls.Add(Me.CREDIT_OPT)
+        Me.CREDITOR_PANEL.Controls.Add(Me.CASH_OPT)
+        Me.CREDITOR_PANEL.Controls.Add(Me.CREDITOR_TXT)
+        Me.CREDITOR_PANEL.Controls.Add(Me.Label5)
+        Me.CREDITOR_PANEL.Location = New System.Drawing.Point(72, 434)
+        Me.CREDITOR_PANEL.Name = "CREDITOR_PANEL"
+        Me.CREDITOR_PANEL.Size = New System.Drawing.Size(663, 105)
+        Me.CREDITOR_PANEL.TabIndex = 3
+        '
+        'CREDITORS_BTN
+        '
+        Me.CREDITORS_BTN.Location = New System.Drawing.Point(506, 53)
+        Me.CREDITORS_BTN.Name = "CREDITORS_BTN"
+        Me.CREDITORS_BTN.Size = New System.Drawing.Size(147, 27)
+        Me.CREDITORS_BTN.TabIndex = 3
+        Me.CREDITORS_BTN.Text = "CREDITORS"
+        Me.CREDITORS_BTN.UseVisualStyleBackColor = True
+        '
+        'CREDIT_OPT
+        '
+        Me.CREDIT_OPT.AutoSize = True
+        Me.CREDIT_OPT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CREDIT_OPT.Location = New System.Drawing.Point(135, 12)
+        Me.CREDIT_OPT.Name = "CREDIT_OPT"
+        Me.CREDIT_OPT.Size = New System.Drawing.Size(67, 20)
+        Me.CREDIT_OPT.TabIndex = 2
+        Me.CREDIT_OPT.Text = "Credit"
+        Me.CREDIT_OPT.UseVisualStyleBackColor = True
+        '
+        'CASH_OPT
+        '
+        Me.CASH_OPT.AutoSize = True
+        Me.CASH_OPT.Checked = True
+        Me.CASH_OPT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CASH_OPT.Location = New System.Drawing.Point(8, 12)
+        Me.CASH_OPT.Name = "CASH_OPT"
+        Me.CASH_OPT.Size = New System.Drawing.Size(61, 20)
+        Me.CASH_OPT.TabIndex = 1
+        Me.CASH_OPT.TabStop = True
+        Me.CASH_OPT.Text = "Cash"
+        Me.CASH_OPT.UseVisualStyleBackColor = True
+        '
+        'CREDITOR_TXT
+        '
+        Me.CREDITOR_TXT.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.CREDITOR_TXT.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CREDITOR_TXT.ForeColor = System.Drawing.Color.Black
+        Me.CREDITOR_TXT.Location = New System.Drawing.Point(164, 52)
+        Me.CREDITOR_TXT.Name = "CREDITOR_TXT"
+        Me.CREDITOR_TXT.Size = New System.Drawing.Size(336, 29)
+        Me.CREDITOR_TXT.TabIndex = 9
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(3, 52)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(159, 29)
+        Me.Label5.TabIndex = 10
+        Me.Label5.Text = "CREDIT TO:"
+        '
+        'COPY_OPT
+        '
+        Me.COPY_OPT.AutoSize = True
+        Me.COPY_OPT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.COPY_OPT.Location = New System.Drawing.Point(616, 621)
+        Me.COPY_OPT.Name = "COPY_OPT"
+        Me.COPY_OPT.Size = New System.Drawing.Size(112, 20)
+        Me.COPY_OPT.TabIndex = 6
+        Me.COPY_OPT.Text = "Copy Recipt"
+        Me.COPY_OPT.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -146,7 +243,7 @@ Partial Class MOBILE_LOAD_FRM
         Me.ERROR_LBL.BackColor = System.Drawing.Color.Maroon
         Me.ERROR_LBL.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ERROR_LBL.ForeColor = System.Drawing.Color.White
-        Me.ERROR_LBL.Location = New System.Drawing.Point(67, 514)
+        Me.ERROR_LBL.Location = New System.Drawing.Point(67, 622)
         Me.ERROR_LBL.Name = "ERROR_LBL"
         Me.ERROR_LBL.Size = New System.Drawing.Size(39, 20)
         Me.ERROR_LBL.TabIndex = 92
@@ -167,17 +264,17 @@ Partial Class MOBILE_LOAD_FRM
         '
         Me.TID_TXT.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TID_TXT.ForeColor = System.Drawing.Color.Red
-        Me.TID_TXT.Location = New System.Drawing.Point(66, 466)
+        Me.TID_TXT.Location = New System.Drawing.Point(66, 586)
         Me.TID_TXT.Name = "TID_TXT"
         Me.TID_TXT.Size = New System.Drawing.Size(210, 29)
-        Me.TID_TXT.TabIndex = 5
+        Me.TID_TXT.TabIndex = 7
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(61, 434)
+        Me.Label4.Location = New System.Drawing.Point(61, 554)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(71, 29)
         Me.Label4.TabIndex = 8
@@ -187,17 +284,17 @@ Partial Class MOBILE_LOAD_FRM
         '
         Me.TNO_TXT.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
         Me.TNO_TXT.ForeColor = System.Drawing.Color.Red
-        Me.TNO_TXT.Location = New System.Drawing.Point(287, 466)
+        Me.TNO_TXT.Location = New System.Drawing.Point(287, 586)
         Me.TNO_TXT.Name = "TNO_TXT"
         Me.TNO_TXT.Size = New System.Drawing.Size(312, 29)
-        Me.TNO_TXT.TabIndex = 3
+        Me.TNO_TXT.TabIndex = 4
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(282, 434)
+        Me.Label3.Location = New System.Drawing.Point(282, 554)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 29)
         Me.Label3.TabIndex = 6
@@ -239,10 +336,10 @@ Partial Class MOBILE_LOAD_FRM
         '
         Me.UPDATE_BTN.Enabled = False
         Me.UPDATE_BTN.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UPDATE_BTN.Location = New System.Drawing.Point(605, 434)
+        Me.UPDATE_BTN.Location = New System.Drawing.Point(605, 554)
         Me.UPDATE_BTN.Name = "UPDATE_BTN"
         Me.UPDATE_BTN.Size = New System.Drawing.Size(132, 61)
-        Me.UPDATE_BTN.TabIndex = 4
+        Me.UPDATE_BTN.TabIndex = 5
         Me.UPDATE_BTN.Text = "&Update"
         Me.UPDATE_BTN.UseVisualStyleBackColor = True
         '
@@ -270,28 +367,19 @@ Partial Class MOBILE_LOAD_FRM
         'PrintDocument2
         '
         '
-        'COPY_OPT
-        '
-        Me.COPY_OPT.AutoSize = True
-        Me.COPY_OPT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.COPY_OPT.Location = New System.Drawing.Point(616, 501)
-        Me.COPY_OPT.Name = "COPY_OPT"
-        Me.COPY_OPT.Size = New System.Drawing.Size(112, 20)
-        Me.COPY_OPT.TabIndex = 93
-        Me.COPY_OPT.Text = "Copy Recipt"
-        Me.COPY_OPT.UseVisualStyleBackColor = True
-        '
         'MOBILE_LOAD_FRM
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.OldLace
-        Me.ClientSize = New System.Drawing.Size(847, 620)
+        Me.ClientSize = New System.Drawing.Size(847, 684)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "MOBILE_LOAD_FRM"
         Me.Text = "MOBILE_LOAD_FRM"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.CREDITOR_PANEL.ResumeLayout(False)
+        Me.CREDITOR_PANEL.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -322,4 +410,11 @@ Partial Class MOBILE_LOAD_FRM
     Friend WithEvents TID_TXT As TextBox
     Friend WithEvents PrintDocument2 As Printing.PrintDocument
     Friend WithEvents COPY_OPT As CheckBox
+    Friend WithEvents CREDITOR_PANEL As Panel
+    Friend WithEvents CREDIT_OPT As RadioButton
+    Friend WithEvents CASH_OPT As RadioButton
+    Friend WithEvents CREDITOR_TXT As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents CREDITORS_BTN As Button
+    Friend WithEvents ListBox1 As ListBox
 End Class

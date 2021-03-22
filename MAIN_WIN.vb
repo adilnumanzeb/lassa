@@ -3,7 +3,15 @@ Public Class MAINWIN_FRM
 
     Private Sub MAINWIN_FRM_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            Dim MySQLConnection = New MySqlConnection
+            MySQLConnection.ConnectionString = "server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;"
+            MySQLConnection.Open()
+            ONLINE_STATUS_LBL.Text = "Online!"
+        Catch ex As Exception
+            ONLINE_STATUS_LBL.Text = "Failed!- " & ex.Message
+        End Try
 
+        Try
             LOG_PANNEL.Location = New Point(0, 0)
             LOG_PANNEL.Size = New Size(806, 674)
             LOG_TXT.Size = New Size(794, 370)
@@ -11,7 +19,7 @@ Public Class MAINWIN_FRM
             PB1.Value += 10
             LOG_TXT.Text = "Loading...."
             DATABASE_CHK()
-            Dim CON As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+            Dim CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
             CON.Open()
 
 
@@ -30,14 +38,18 @@ Public Class MAINWIN_FRM
 
         End Try
     End Sub
-    Sub LOAD_EVENTS()
 
+
+    Sub LOAD_EVENTS()
 
         PB1.Value += 10
         TABLES_CHK_TRANS_ID()
         PB1.Value += 10
-
-
+        TABLES_CHK_CONTACTS()
+        PB1.Value += 10
+        Call TABLES_CHK_CREDIT_HISTORY()
+        PB1.Value += 10
+        Timer1.Enabled = True
     End Sub
 
 
@@ -82,7 +94,7 @@ Public Class MAINWIN_FRM
             Dim conn As MySqlConnection = New MySqlConnection(DBConnectionString)
             Dim cmd As MySqlCommand = New MySqlCommand("Select If(EXISTS(SELECT SCHEMA_NAME " &
             "FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = @DbName), 'Y','N')", conn)
-            cmd.Parameters.AddWithValue("@DbName", "easypaisa_db")
+            cmd.Parameters.AddWithValue("@DbName", "e9Vjw3hs9v")
             conn.Open()
             Dim exists As String = cmd.ExecuteScalar().ToString()
             Console.WriteLine(exists)
@@ -97,7 +109,7 @@ Public Class MAINWIN_FRM
         Dim aRet As Boolean
         Try
             Dim conn As MySqlConnection = New MySqlConnection(DBConnectionString)
-            Dim cmd As New MySqlCommand("Select * From information_schema.tables Where table_schema = 'easypaisa_db' And table_name ='" & TABLE_NAME & "' LIMIT 1;", conn)
+            Dim cmd As New MySqlCommand("Select * From information_schema.tables Where table_schema = 'e9Vjw3hs9v' And table_name ='" & TABLE_NAME & "' LIMIT 1;", conn)
 
 
             conn.Open()
@@ -123,9 +135,9 @@ Public Class MAINWIN_FRM
         DB_POST_CREATION = False
         Try
             LOG_TXT.Text &= Environment.NewLine & Environment.NewLine & ">" & "DATABASE EXISTS: " & DoesDBExist("server=localhost; username=root; password=Masoom1;")
-            If DoesDBExist("server=localhost; username=root; password=Masoom1;") = False Then
-                Using CON As New MySqlConnection("server=localhost; username=root; password=Masoom1;")
-                    Using adapter As New MySqlDataAdapter("CREATE SCHEMA `easypaisa_db` ;", CON)
+            If DoesDBExist("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;") = False Then
+                Using CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+                    Using adapter As New MySqlDataAdapter("CREATE SCHEMA `e9Vjw3hs9v` ;", CON)
                         CON.Open()
                         Dim dt As New DataTable
                         adapter.Fill(dt)
@@ -143,15 +155,69 @@ Public Class MAINWIN_FRM
     Sub TABLES_CHK_TRANS_ID()
         Dim CON_STRING As String
         Dim CUR_TABLE As String = "TRANS_ID"
-        CON_STRING = "server=localhost; username=root; password=Masoom1; database=easypaisa_db;"
+        CON_STRING = "server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;"
         Try
             LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " TABLES EXISTS: " & DoesTABLEExist(CON_STRING, CUR_TABLE)
             If DoesTABLEExist(CON_STRING, CUR_TABLE) = False Then
                 Using CON As New MySqlConnection(CON_STRING)
-                    Using adapter As New MySqlDataAdapter("CREATE TABLE `easypaisa_db`.`" & CUR_TABLE & "`(" &
+                    Using adapter As New MySqlDataAdapter("CREATE TABLE `e9Vjw3hs9v`.`" & CUR_TABLE & "`(" &
                 "`TID` INT Not NULL AUTO_INCREMENT,`MOBILE` VARCHAR(255) NULL,`NAME` VARCHAR(255) NULL,`AMOUNT` VARCHAR(255) NULL," &
                 "`TRAN_NO` VARCHAR(255) NULL,`DATE` VARCHAR(255) NULL,`REMARKS` VARCHAR(255) NULL," &
                 "PRIMARY KEY(`TID`))", CON)
+                        CON.Open()
+                        Dim dt As New DataTable
+                        adapter.Fill(dt)
+                        CON.Close()
+                    End Using
+                End Using
+                LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " -TABLES CREATED: " & DoesTABLEExist(CON_STRING, CUR_TABLE) & Environment.NewLine
+            Else
+                LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " -TABLES CREATED: False" & Environment.NewLine
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+    Sub TABLES_CHK_CONTACTS()
+        Dim CON_STRING As String
+        Dim CUR_TABLE As String = "CONTACTS"
+        CON_STRING = "server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;"
+        Try
+            LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " TABLES EXISTS: " & DoesTABLEExist(CON_STRING, CUR_TABLE)
+            If DoesTABLEExist(CON_STRING, CUR_TABLE) = False Then
+                Using CON As New MySqlConnection(CON_STRING)
+                    Using adapter As New MySqlDataAdapter("CREATE TABLE `e9Vjw3hs9v`.`" & CUR_TABLE & "`(" &
+                "`CID` INT Not NULL AUTO_INCREMENT,`MOBILE` VARCHAR(255) NULL,`NAME` VARCHAR(255) NULL,`BALANCE` VARCHAR(255) NULL," &
+                "`OTHERS` VARCHAR(255) NULL,`DATE` VARCHAR(255) NULL,`REMARKS` VARCHAR(255) NULL," &
+                "PRIMARY KEY(`CID`))", CON)
+                        CON.Open()
+                        Dim dt As New DataTable
+                        adapter.Fill(dt)
+                        CON.Close()
+                    End Using
+                End Using
+                LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " -TABLES CREATED: " & DoesTABLEExist(CON_STRING, CUR_TABLE) & Environment.NewLine
+            Else
+                LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " -TABLES CREATED: False" & Environment.NewLine
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+    Sub TABLES_CHK_CREDIT_HISTORY()
+        Dim CON_STRING As String
+        Dim CUR_TABLE As String = "CREDIT_HISTORY"
+        CON_STRING = "server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;"
+        Try
+            LOG_TXT.Text &= Environment.NewLine & ">" & UCase(CUR_TABLE) & " TABLES EXISTS: " & DoesTABLEExist(CON_STRING, CUR_TABLE)
+            If DoesTABLEExist(CON_STRING, CUR_TABLE) = False Then
+                Using CON As New MySqlConnection(CON_STRING)
+                    Using adapter As New MySqlDataAdapter("CREATE TABLE `e9Vjw3hs9v`.`" & CUR_TABLE & "`(" &
+                "`ID` INT Not NULL AUTO_INCREMENT,`MOBILE` VARCHAR(255) NULL,`NAME` VARCHAR(255) NULL,`BALANCE` VARCHAR(255) NULL," &
+                "`AMOUNT` VARCHAR(255) NULL,`DATE` VARCHAR(255) NULL,`REMARKS` VARCHAR(255) NULL," &
+                "PRIMARY KEY(`ID`))", CON)
                         CON.Open()
                         Dim dt As New DataTable
                         adapter.Fill(dt)
@@ -171,7 +237,6 @@ Public Class MAINWIN_FRM
 
 
     Private Sub LOADBAR_TIMER_Tick(sender As Object, e As EventArgs) Handles LOADBAR_TIMER.Tick
-        Timer1.Enabled = True
         LOADBAR_TIMER.Enabled = False
         Call LOAD_EVENTS()
     End Sub
@@ -189,8 +254,13 @@ Public Class MAINWIN_FRM
     End Sub
 
     Private Sub TIME_DATE_Tick(sender As Object, e As EventArgs) Handles TIME_DATE.Tick
-        TIME_LBL.Text = Today.ToString("hh:mm:ss")
+        TIME_LBL.Text = Now.ToString("hh:mm:ss")
         DATE_LBL.Text = Today.ToString("dd-MMM-yyyy")
 
     End Sub
+
+    Private Sub CONTACTS_BTN_Click(sender As Object, e As EventArgs) Handles CONTACTS_BTN.Click
+        CONTACTS_FRM.Show()
+    End Sub
+
 End Class

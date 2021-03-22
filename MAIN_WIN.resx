@@ -7172,6 +7172,9 @@
         RK5CYII=
 </value>
   </data>
+  <metadata name="TIME_DATE.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 17</value>
+  </metadata>
   <data name="LOGO_PIC_2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAjgAAAD2CAIAAABUampMAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -22190,9 +22193,6 @@
         foP0Ll//AKi3Pv8A/rb/2Q==
 </value>
   </data>
-  <metadata name="TIME_DATE.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>251, 17</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABABUAAAAQAAEABAC4DgAAVgEAAAAAAAABAAgAbSwAAA4QAAAAAAAAAQAgAFK5AAB7PAAAgIAQAAEA

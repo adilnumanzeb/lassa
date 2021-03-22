@@ -26,7 +26,7 @@ Public Class EASYPAISA_FRM
     Sub GET_TID_NUMBER()
         'TO CHECK IF DB IS NEW
 
-        Dim CON As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+        Dim CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
         Dim DA As New MySqlDataAdapter("SELECT * FROM `TRANS_ID`;", CON)
         Dim CMD As New MySqlCommand("SELECT * FROM `TRANS_ID`;", CON)
         Dim dt As New DataTable
@@ -50,7 +50,7 @@ Public Class EASYPAISA_FRM
     End Sub
 
     Sub TID_UPDATER()
-        Dim CON As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+        Dim CON As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
         Dim DA As New MySqlDataAdapter("SELECT * FROM `TRANS_ID` ORDER BY `TID` DESC LIMIT 1;", CON)
         Dim CMD As New MySqlCommand("SELECT * FROM `TRANS_ID` ORDER BY `TID` DESC LIMIT 1;", CON)
         Dim dt As New DataTable, DR As MySqlDataReader, TID_DB_VALUE As String
@@ -70,7 +70,7 @@ Public Class EASYPAISA_FRM
     End Sub
     Sub NEW_DB_TID()
         'Using DR USING DATA CONNECTION
-        Using con As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
+        Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
             'Using cmd As New mysqlCommand("INSERT INTO `TRANS_ID` VALUES NULL,'N/A','" & AMOUNT_TXT.Text & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','N/A';", con)
             Using cmd As New MySqlCommand("INSERT INTO `TRANS_ID` VALUES (NULL,'" & MOBILENO_TXT.Text & "','N/A','0','0','" & Date.Today.ToString("dd-MM-yyyy") & "','N/A');", con)
                 Using da As New MySqlDataAdapter
@@ -85,8 +85,8 @@ Public Class EASYPAISA_FRM
 
     Sub UPDATE_TRANS_CMD()
         'Using DR USING DATA CONNECTION
-        Using con As New MySqlConnection("server=localhost; username=root; password=Masoom1; database=easypaisa_db;")
-            Using cmd As New MySqlCommand("INSERT INTO `TRANS_ID` VALUES (NULL,'" & MOBILENO_TXT.Text & "','" & CUSTOMER_NAME_TXT.Text & "','" & AMOUNT_TXT.Text & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','EASY PAISA');", con)
+        Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
+            Using cmd As New MySqlCommand("INSERT INTO `TRANS_ID` VALUES (NULL,'" & GET_ONLY_MOBNO(MOBILENO_TXT.Text) & "','" & CUSTOMER_NAME_TXT.Text & "','" & AMOUNT_TXT.Text & "','" & TNO_TXT.Text & "','" & Date.Today.ToString("dd-MM-yyyy") & "','EASY PAISA');", con)
                 Using da As New MySqlDataAdapter
                     con.Open()
                     da.SelectCommand = cmd

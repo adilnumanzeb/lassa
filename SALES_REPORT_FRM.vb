@@ -12,7 +12,9 @@ Public Class SALES_REPORT_FRM
 
 
     Sub GET_TOTAL_SALE_REPORT()
-        Using con As New mySqlConnection("server=localhost; user=root; password=Masoom1; database=easypaisa_db;")
+        Try
+
+            Using con As New MySqlConnection("server=remotemysql.com; port=3306; username=e9Vjw3hs9v; password=Wlu4PLbgfy; database = e9Vjw3hs9v;")
             Using cmd As New MySqlCommand("select * from `TRANS_ID` where `date` <= NOW() AND '" & DTP_DAILYBOOK.Value.ToString("dd-MMM-yyyy") & "' order by `date` desc;", con)
                 Using dt As New DataTable
                     Using DA As New MySqlDataAdapter
@@ -35,6 +37,9 @@ Public Class SALES_REPORT_FRM
         End Using
 
 
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub DAILYBOOK_PRE_BTN_Click(sender As Object, e As EventArgs) Handles DAILYBOOK_PRE_BTN.Click
@@ -51,7 +56,7 @@ Public Class SALES_REPORT_FRM
 
 
             DAILY_BOOK_DATE_TXT.Text = DTP_DAILYBOOK.Value.ToString("dd-MMM-yyyy")
-            Using con As New mySqlConnection("server=localhost; user=root; password=Masoom1; database=easypaisa_db;")
+            Using con As New MySqlConnection("server=localhost; user=root; password=Masoom1; database=e9Vjw3hs9v;")
                 Using cmd As New MySqlCommand("select *  from `TRANS_ID` where `date`='" & DTP_DAILYBOOK.Value.ToString("dd-MM-yyyy") & "' order by `date` desc;", con)
                     Using dt As New DataTable
                         Using DA As New MySqlDataAdapter
